@@ -6,33 +6,33 @@ import java.util.List;
 public class Criteria{
 
     //与
-    private List<Criterion[]> andCreiterions;
+    private List<Criterion> andCreiterions;
     //或
-    private List<Criterion[]> orCreiterions;
+    private List<Criterion> orCreiterions;
     //排序
     private List<Criterion> sorts;
     //分页
     private Criterion limit;
 
     public Criteria(){
-        this.andCreiterions = new ArrayList<Criterion[]>();
-        this.orCreiterions = new ArrayList<Criterion[]>();
+        this.andCreiterions = new ArrayList<Criterion>();
+        this.orCreiterions = new ArrayList<Criterion>();
         this.sorts = new ArrayList<Criterion>();
     }
 
-    public List<Criterion[]> getAndCreiterions(){
+    public List<Criterion> getAndCreiterions(){
         return andCreiterions;
     }
 
-    public void setAndCreiterions(List<Criterion[]> andCreiterions){
+    public void setAndCreiterions(List<Criterion> andCreiterions){
         this.andCreiterions = andCreiterions;
     }
 
-    public List<Criterion[]> getOrCreiterions(){
+    public List<Criterion> getOrCreiterions(){
         return orCreiterions;
     }
 
-    public void setOrCreiterions(List<Criterion[]> orCreiterions){
+    public void setOrCreiterions(List<Criterion> orCreiterions){
         this.orCreiterions = orCreiterions;
     }
 
@@ -52,12 +52,12 @@ public class Criteria{
         this.limit = limit;
     }
 
-    public Criteria and(Criterion... criterions){
+    public Criteria and(Criterion criterions){
         andCreiterions.add(criterions);
         return this;
     }
 
-    public Criteria or(Criterion... criterions){
+    public Criteria or(Criterion criterions){
         orCreiterions.add(criterions);
         return this;
     }
@@ -68,7 +68,7 @@ public class Criteria{
     }
 
     public Criteria limit(Criterion criterion){
-        this.limit = limit;
+        this.limit = criterion;
         return this;
     }
 }

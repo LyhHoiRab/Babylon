@@ -1,5 +1,8 @@
 package com.rab.babylon.commons.security.mybatis;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Restrictions{
 
     public static Criterion like(String property, String value){
@@ -72,16 +75,16 @@ public class Restrictions{
         return criterion;
     }
 
-    public static Criterion in(String property, Object... values){
+    public static Criterion in(String property, List<?> value){
         Criterion criterion = new Criterion();
-        criterion.in(property, values);
+        criterion.in(property, value);
 
         return criterion;
     }
 
-    public static Criterion notIn(String property, Object... values){
+    public static Criterion notIn(String property, List<?> value){
         Criterion criterion = new Criterion();
-        criterion.notIn(property, values);
+        criterion.notIn(property, value);
 
         return criterion;
     }
@@ -100,12 +103,18 @@ public class Restrictions{
         return criterion;
     }
 
-    public static Criterion[] and(Criterion... criterions){
-        return criterions;
+    public static Criterion and(Criterion... criterions){
+        Criterion criterion = new Criterion();
+        criterion.and(Arrays.asList(criterions));
+
+        return criterion;
     }
 
-    public static Criterion[] or(Criterion... criterions){
-        return criterions;
+    public static Criterion or(Criterion... criterions){
+        Criterion criterion = new Criterion();
+        criterion.or(Arrays.asList(criterions));
+
+        return criterion;
     }
 
     public static Criterion desc(String property){
