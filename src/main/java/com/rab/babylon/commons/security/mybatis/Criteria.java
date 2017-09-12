@@ -52,13 +52,13 @@ public class Criteria{
         this.limit = limit;
     }
 
-    public Criteria and(Criterion criterions){
-        andCreiterions.add(criterions);
+    public Criteria and(Criterion criterion){
+        andCreiterions.add(criterion);
         return this;
     }
 
-    public Criteria or(Criterion criterions){
-        orCreiterions.add(criterions);
+    public Criteria or(Criterion criterion){
+        orCreiterions.add(criterion);
         return this;
     }
 
