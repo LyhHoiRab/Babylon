@@ -36,6 +36,21 @@ public class ObjectUtils{
     }
 
     /**
+     * 序列化
+     */
+    public static String toString(Object object){
+        if(object == null){
+            return null;
+        }
+
+        if(object instanceof String || object instanceof Number){
+            return object.toString();
+        }
+
+        return getGson().toJson(object).replaceAll("\"|\\{|\\}|\\[|\\]", "");
+    }
+
+    /**
      * 反序列化
      */
     public static <T> T deserialize(String json, Class<T> clazz){
