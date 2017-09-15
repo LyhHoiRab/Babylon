@@ -50,7 +50,7 @@ public class NameUtils{
 
         StringBuffer sb = new StringBuffer();
 
-        Pattern pattern = Pattern.compile("[A-Z]([a-z\\d]+)?");
+        Pattern pattern = Pattern.compile("[A-Z]([a-z\\d.]+)?");
         Matcher matcher = pattern.matcher(str);
 
         while(matcher.find()){
