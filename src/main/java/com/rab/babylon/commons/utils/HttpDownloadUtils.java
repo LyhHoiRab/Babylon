@@ -206,21 +206,28 @@ public class HttpDownloadUtils{
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         int read;
 
-        if(input.length() == length){
-            while((read = input.read(buffer)) > 0){
-                output.write(buffer, 0 ,read);
-            }
-        }else{
-            input.seek(start);
-            long toRead = length;
-
-            while((read = input.read(buffer)) > 0){
-                if((toRead -= read) > 0){
-                    output.write(buffer,0 , read);
-                }else{
-                    output.write(buffer, 0, (int) toRead + read);
-                    break;
+        try{
+            if(input.length() == length){
+                while((read = input.read(buffer)) > 0){
+                    output.write(buffer, 0 ,read);
                 }
+            }else{
+                input.seek(start);
+                long toRead = length;
+
+                while((read = input.read(buffer)) > 0){
+                    if((toRead -= read) > 0){
+                        output.write(buffer,0 , read);
+                    }else{
+                        output.write(buffer, 0, (int) toRead + read);
+                        break;
+                    }
+                }
+            }
+        }catch(IOException e){
+            //忽略ClientAbortException异常
+            if(!e.getMessage().contains("APR error") || !e.getMessage().contains("ClientAbortException")){
+                throw new IOException(e.getMessage(), e);
             }
         }
     }
