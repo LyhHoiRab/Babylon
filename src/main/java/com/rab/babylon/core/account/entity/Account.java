@@ -16,6 +16,8 @@ public class Account implements Create, Update, Delete{
     private String id;
     //登录名称
     private String loginname;
+    //微信账号
+    private String weChat;
     //手机号码
     private String phone;
     //电子邮箱
@@ -43,6 +45,14 @@ public class Account implements Create, Update, Delete{
 
     public void setId(String id){
         this.id = id;
+    }
+
+    public String getWeChat(){
+        return weChat;
+    }
+
+    public void setWeChat(String weChat){
+        this.weChat = weChat;
     }
 
     public String getLoginname(){
