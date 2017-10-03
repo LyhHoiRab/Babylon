@@ -30,6 +30,8 @@ public class User implements Create, Update, Delete{
     private Date birthday;
     //用户状态
     private UsingState state;
+    //头像
+    private String headImgUrl;
     //用户扩展属性
     private List<UserExpand> expands;
     //是否删除
@@ -115,6 +117,14 @@ public class User implements Create, Update, Delete{
 
     public void setExpands(List<UserExpand> expands){
         this.expands = expands;
+    }
+
+    public String getHeadImgUrl(){
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl){
+        this.headImgUrl = headImgUrl;
     }
 
     @Override
