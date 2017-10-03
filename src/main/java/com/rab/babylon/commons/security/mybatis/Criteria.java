@@ -71,4 +71,11 @@ public class Criteria{
         this.limit = criterion;
         return this;
     }
+
+    public void clear(){
+        this.andCreiterions.clear();
+        this.orCreiterions.clear();
+        this.sorts.clear();
+        this.limit = null;
+    }
 }
