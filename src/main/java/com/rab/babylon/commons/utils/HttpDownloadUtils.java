@@ -226,7 +226,7 @@ public class HttpDownloadUtils{
             }
         }catch(IOException e){
             //忽略ClientAbortException异常
-            if(!e.getMessage().contains("APR error") || !e.getMessage().contains("ClientAbortException")){
+            if(!e.getMessage().contains("APR error") || !e.getMessage().contains("ClientAbortException") || !e.getMessage().contains("您的主机中的软件中止了一个已建立的连接")){
                 throw new IOException(e.getMessage(), e);
             }
         }
