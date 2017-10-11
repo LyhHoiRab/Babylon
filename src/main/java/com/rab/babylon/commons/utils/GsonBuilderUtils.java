@@ -44,7 +44,7 @@ public class GsonBuilderUtils{
      */
     private static GsonBuilder getBuilder(){
         if(builder == null){
-            builder = new GsonBuilder().serializeNulls()
+            builder = new GsonBuilder()
                     .registerTypeAdapter(Date.class, new DateDeserializer()).setDateFormat(DateFormat.LONG)
                     .registerTypeAdapter(Date.class, new DateSerializer()).setDateFormat(DateFormat.LONG);
         }
