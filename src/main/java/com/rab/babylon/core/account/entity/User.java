@@ -28,6 +28,10 @@ public class User implements Create, Update, Delete{
     private Sex sex;
     //出生日期
     private Date birthday;
+    //手机
+    private String phone;
+    //职业
+    private String position;
     //用户状态
     private UsingState state;
     //头像
@@ -125,6 +129,22 @@ public class User implements Create, Update, Delete{
 
     public void setHeadImgUrl(String headImgUrl){
         this.headImgUrl = headImgUrl;
+    }
+
+    public String getPhone(){
+        return phone;
+    }
+
+    public void setPhone(String phone){
+        this.phone = phone;
+    }
+
+    public String getPosition(){
+        return position;
+    }
+
+    public void setPosition(String position){
+        this.position = position;
     }
 
     @Override
