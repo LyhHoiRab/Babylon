@@ -143,8 +143,8 @@ public class Criterion{
         checkValue(value);
         property = checkProperty(property);
 
-        this.property = WILDCARD + property + WILDCARD;
-        this.value = value;
+        this.value = this.property = property;
+        this.value = WILDCARD + value + WILDCARD;
         this.operator = LIKE;
         this.singleValue = true;
     }
@@ -156,8 +156,8 @@ public class Criterion{
         checkValue(value);
         property = checkProperty(property);
 
-        this.property = WILDCARD + property + WILDCARD;
-        this.value = value;
+        this.property = property;
+        this.value = WILDCARD + value + WILDCARD;
         this.operator = NOT_LIKE;
         this.singleValue = true;
     }
