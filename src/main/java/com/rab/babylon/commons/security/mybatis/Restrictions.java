@@ -137,4 +137,11 @@ public class Restrictions{
 
         return criterion;
     }
+
+    public static Criterion groupBy(String property){
+        Criterion criterion = new Criterion();
+        criterion.groupBy(property);
+
+        return criterion;
+    }
 }

@@ -28,6 +28,7 @@ public class Criterion{
     private final static String DESC = "DESC";
     private final static String ASC = "ASC";
     private final static String LIMIT = "LIMIT";
+    private final static String GROUP_BY = "GROUP BY";
     private final static String OR = "OR";
     private final static String AND = "AND";
 
@@ -378,5 +379,16 @@ public class Criterion{
         this.secondValue = size;
         this.operator = LIMIT;
         this.betweenValue = true;
+    }
+
+    /**
+     * 分组
+     */
+    public void groupBy(String property){
+        property = checkProperty(property);
+
+        this.property = property;
+        this.operator = GROUP_BY;
+        this.noValue = true;
     }
 }

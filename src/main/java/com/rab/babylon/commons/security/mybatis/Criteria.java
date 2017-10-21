@@ -11,6 +11,8 @@ public class Criteria{
     private List<Criterion> orCreiterions;
     //排序
     private List<Criterion> sorts;
+    //分组
+    private List<Criterion> groups;
     //分页
     private Criterion limit;
 
@@ -18,6 +20,7 @@ public class Criteria{
         this.andCreiterions = new ArrayList<Criterion>();
         this.orCreiterions = new ArrayList<Criterion>();
         this.sorts = new ArrayList<Criterion>();
+        this.groups = new ArrayList<Criterion>();
     }
 
     public List<Criterion> getAndCreiterions(){
@@ -72,10 +75,16 @@ public class Criteria{
         return this;
     }
 
+    public Criteria groupBy(Criterion criterion){
+        this.groups.add(criterion);
+        return this;
+    }
+
     public void clear(){
         this.andCreiterions.clear();
         this.orCreiterions.clear();
         this.sorts.clear();
+        this.groups.clear();
         this.limit = null;
     }
 }
