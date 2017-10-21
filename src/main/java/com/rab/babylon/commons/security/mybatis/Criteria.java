@@ -55,6 +55,14 @@ public class Criteria{
         this.limit = limit;
     }
 
+    public List<Criterion> getGroups(){
+        return groups;
+    }
+
+    public void setGroups(List<Criterion> groups){
+        this.groups = groups;
+    }
+
     public Criteria and(Criterion criterion){
         andCreiterions.add(criterion);
         return this;
