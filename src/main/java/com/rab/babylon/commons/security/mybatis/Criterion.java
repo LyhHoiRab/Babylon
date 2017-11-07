@@ -115,6 +115,14 @@ public class Criterion{
         this.listValue = listValue;
     }
 
+    public boolean isCriterionValue(){
+        return criterionValue;
+    }
+
+    public void setCriterionValue(boolean criterionValue){
+        this.criterionValue = criterionValue;
+    }
+
     private void checkValue(Object value){
         if(value == null){
             throw new IllegalArgumentException("运算值不能为空");
