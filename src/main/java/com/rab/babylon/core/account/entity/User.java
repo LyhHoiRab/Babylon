@@ -18,6 +18,8 @@ public class User implements Create, Update, Delete{
     private String id;
     //账户ID
     private String accountId;
+    //导师ID
+    private String advisorId;
     //用户编码
     private Integer code;
     //微信号
@@ -71,6 +73,14 @@ public class User implements Create, Update, Delete{
 
     public void setAccountId(String accountId){
         this.accountId = accountId;
+    }
+
+    public String getAdvisorId(){
+        return advisorId;
+    }
+
+    public void setAdvisorId(String advisorId){
+        this.advisorId = advisorId;
     }
 
     public String getNickname(){
