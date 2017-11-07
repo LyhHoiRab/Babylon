@@ -54,6 +54,8 @@ public class User implements Create, Update, Delete{
     private Date deleteTime;
     //能否观看课程
     private Boolean hasRole;
+    //SessionKey
+    private String sessionKey;
 
     public User(){
 
@@ -185,6 +187,14 @@ public class User implements Create, Update, Delete{
 
     public void setWechat(String wechat){
         this.wechat = wechat;
+    }
+
+    public String getSessionKey(){
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey){
+        this.sessionKey = sessionKey;
     }
 
     @Override
