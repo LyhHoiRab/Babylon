@@ -75,14 +75,6 @@ public class AESUtils{
     }
 
     private static byte[] encryptToByte(String str, String password, int length) throws Exception{
-//        KeyGenerator kgen = KeyGenerator.getInstance(AES);
-//        kgen.init(length, new SecureRandom(password.getBytes(CHARSET)));
-//
-//        SecretKey secretKey = kgen.generateKey();
-//        byte[] enCodeFormat = secretKey.getEncoded();
-//
-//        SecretKeySpec key = new SecretKeySpec(enCodeFormat, AES);
-
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         random.setSeed(password.getBytes());
 
@@ -103,14 +95,6 @@ public class AESUtils{
     }
 
     private static byte[] decryptToByte(byte[] bytes, String password, int length) throws Exception{
-//        KeyGenerator kgen = KeyGenerator.getInstance(AES);
-//        kgen.init(length, new SecureRandom(password.getBytes(CHARSET)));
-//
-//        SecretKey secretKey = kgen.generateKey();
-//        byte[] enCodeFormat = secretKey.getEncoded();
-//
-//        SecretKeySpec key = new SecretKeySpec(enCodeFormat, AES);
-
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         random.setSeed(password.getBytes());
 

@@ -18,6 +18,10 @@ public class User implements Create, Update, Delete{
     private String id;
     //账户ID
     private String accountId;
+    //用户编码
+    private Integer code;
+    //微信号
+    private String wechat;
     //用户昵称
     private String nickname;
     //真实姓名
@@ -46,6 +50,8 @@ public class User implements Create, Update, Delete{
     private Date updateTime;
     //删除时间
     private Date deleteTime;
+    //能否观看课程
+    private Boolean hasRole;
 
     public User(){
 
@@ -145,6 +151,30 @@ public class User implements Create, Update, Delete{
 
     public void setPosition(String position){
         this.position = position;
+    }
+
+    public Integer getCode(){
+        return code;
+    }
+
+    public Boolean getHasRole(){
+        return hasRole;
+    }
+
+    public void setHasRole(Boolean hasRole){
+        this.hasRole = hasRole;
+    }
+
+    public void setCode(Integer code){
+        this.code = code;
+    }
+
+    public String getWechat(){
+        return wechat;
+    }
+
+    public void setWechat(String wechat){
+        this.wechat = wechat;
     }
 
     @Override
