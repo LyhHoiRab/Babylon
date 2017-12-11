@@ -14,16 +14,16 @@ public enum Sex{
     MALE(1, "男性"),
 
     @SerializedName("2")
-    UNKNOWN(2, "未知"),
+    UNKNOWN(2, "未知");
 
-    @SerializedName("3")
-    NEUTRAL(3, "中性"),
-
-    @SerializedName("4")
-    MANLY(4, "偏男性"),
-
-    @SerializedName("5")
-    WOMANLY(5, "偏女性");
+//    @SerializedName("3")
+//    NEUTRAL(3, "中性"),
+//
+//    @SerializedName("4")
+//    MANLY(4, "偏男性"),
+//
+//    @SerializedName("5")
+//    WOMANLY(5, "偏女性");
 
     private int id;
     private String description;
