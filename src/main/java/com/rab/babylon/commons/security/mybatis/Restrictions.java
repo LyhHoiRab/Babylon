@@ -16,7 +16,7 @@ public class Restrictions{
         Criterion criterion = new Criterion();
         criterion.notLike(property, value);
 
-         return criterion;
+        return criterion;
     }
 
     public static Criterion eq(String property, Object value){
@@ -68,21 +68,14 @@ public class Restrictions{
         return criterion;
     }
 
-    public static Criterion notBetween(String property, Object min, Object max){
-        Criterion criterion = new Criterion();
-        criterion.notBetween(property, min, max);
-
-        return criterion;
-    }
-
-    public static Criterion in(String property, List<?> value){
+    public static Criterion in(String property, List value){
         Criterion criterion = new Criterion();
         criterion.in(property, value);
 
         return criterion;
     }
 
-    public static Criterion notIn(String property, List<?> value){
+    public static Criterion notIn(String property, List value){
         Criterion criterion = new Criterion();
         criterion.notIn(property, value);
 
@@ -96,23 +89,37 @@ public class Restrictions{
         return criterion;
     }
 
-    public static Criterion notNull(String property){
+    public static Criterion isNotNull(String property){
         Criterion criterion = new Criterion();
-        criterion.notNull(property);
+        criterion.isNotNull(property);
 
         return criterion;
     }
 
-    public static Criterion and(Criterion... criterions){
+    public static Criterion isBlank(String property){
         Criterion criterion = new Criterion();
-        criterion.and(Arrays.asList(criterions));
+        criterion.isBlank(property);
 
         return criterion;
     }
 
-    public static Criterion or(Criterion... criterions){
+    public static Criterion isNotBlank(String property){
         Criterion criterion = new Criterion();
-        criterion.or(Arrays.asList(criterions));
+        criterion.isNotBlank(property);
+
+        return criterion;
+    }
+
+    public static Criterion or(Criterion... value){
+        Criterion criterion = new Criterion();
+        criterion.or(Arrays.asList(value));
+
+        return criterion;
+    }
+
+    public static Criterion and(Criterion... value){
+        Criterion criterion = new Criterion();
+        criterion.and(Arrays.asList(value));
 
         return criterion;
     }

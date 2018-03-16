@@ -23,7 +23,20 @@ public class MD5Utils{
         MessageDigest digest = MessageDigest.getInstance(MD5);
         byte[] buff = digest.digest(str.getBytes(CHARSET));
 
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encode(buff);
+        return byte2HexStr(buff);
+    }
+
+    private static String byte2HexStr(byte[] bytes){
+        StringBuffer sb = new StringBuffer();
+
+        for(int i = 0; i < bytes.length; i++){
+            String hex = Integer.toHexString(bytes[i] & 0xFF);
+
+            if(hex.length() < 2){
+                sb.append(0);
+            }
+            sb.append(hex);
+        }
+        return sb.toString().toUpperCase();
     }
 }

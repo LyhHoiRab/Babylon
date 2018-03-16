@@ -441,11 +441,27 @@ public class RedisUtils{
     }
 
     public static void hdel(ShardedJedis jedis, String key, List<String> fields){
-        checkJedis(jedis);
-        checkKey(key);
-        checkField(fields);
+        try{
+            checkJedis(jedis);
+            checkKey(key);
+            checkField(fields);
 
-        jedis.hdel(key, (String[]) fields.toArray(new String[fields.size()]));
+            jedis.hdel(key, (String[]) fields.toArray(new String[fields.size()]));
+        }finally{
+            jedis.close();
+        }
+    }
+
+    public static void hdel(ShardedJedis jedis, String key, String field){
+        try{
+            checkJedis(jedis);
+            checkKey(key);
+            checkField(field);
+
+            jedis.hdel(key, field);
+        }finally{
+            jedis.close();
+        }
     }
 
     public static boolean hexists(ShardedJedis jedis, String key, String field){

@@ -40,7 +40,7 @@ public class ObjectUtils{
      */
     public static String toString(Object object){
         if(object == null){
-            return null;
+            return "";
         }
 
         if(object instanceof String || object instanceof Number){

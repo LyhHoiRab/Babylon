@@ -1,14 +1,13 @@
 package com.rab.babylon.commons.security.mybatis;
 
+import com.rab.babylon.commons.security.exception.DataAccessException;
 import com.rab.babylon.commons.utils.NameUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class Criterion{
-
-    //通配符
-    private final static String WILDCARD = "%";
 
     //运算符
     private final static String LIKE = "LIKE";
@@ -48,112 +47,90 @@ public class Criterion{
     private boolean betweenValue;
     //多值标识
     private boolean listValue;
-    //多Criterion标识
-    private boolean criterionValue;
+    //Criterion与标识
+    private boolean andCriterionValue;
+    //Criterion或标识
+    private boolean orCriterionValue;
 
     public String getProperty(){
         return property;
-    }
-
-    public void setProperty(String property){
-        this.property = property;
     }
 
     public String getOperator(){
         return operator;
     }
 
-    public void setOperator(String operator){
-        this.operator = operator;
-    }
-
     public Object getValue(){
         return value;
-    }
-
-    public void setValue(Object value){
-        this.value = value;
     }
 
     public Object getSecondValue(){
         return secondValue;
     }
 
-    public void setSecondValue(Object secondValue){
-        this.secondValue = secondValue;
-    }
-
     public boolean getNoValue(){
         return noValue;
-    }
-
-    public void setNoValue(boolean noValue){
-        this.noValue = noValue;
     }
 
     public boolean getSingleValue(){
         return singleValue;
     }
 
-    public void setSingleValue(boolean singleValue){
-        this.singleValue = singleValue;
-    }
-
     public boolean getBetweenValue(){
         return betweenValue;
-    }
-
-    public void setBetweenValue(boolean betweenValue){
-        this.betweenValue = betweenValue;
     }
 
     public boolean getListValue(){
         return listValue;
     }
 
-    public void setListValue(boolean listValue){
-        this.listValue = listValue;
+    public boolean getAndCriterionValue(){
+        return andCriterionValue;
     }
 
-    public boolean isCriterionValue(){
-        return criterionValue;
+    public boolean getOrCriterionValue(){
+        return orCriterionValue;
     }
 
-    public void setCriterionValue(boolean criterionValue){
-        this.criterionValue = criterionValue;
-    }
-
-    private void checkValue(Object value){
+    public void setValue(Object value){
         if(value == null){
-            throw new IllegalArgumentException("运算值不能为空");
+            throw new DataAccessException("运算值不能为空");
         }
 
-        if(value instanceof List<?> && ((List) value).isEmpty()){
-            throw new IllegalArgumentException("运算数组不能为空");
+        if(value instanceof List && ((List) value).isEmpty()){
+            throw new DataAccessException("运算数组不能为空");
         }
 
-        if(value instanceof String && StringUtils.isBlank((String) value)){
-            throw new IllegalArgumentException("运算字符串不能为空");
-        }
+        this.value = value;
     }
 
-    private String checkProperty(String property){
-        if(StringUtils.isBlank(property)){
-            throw new IllegalArgumentException("属性名不能为空");
+    public void setSecondValue(Object value){
+        if(value == null){
+            throw new DataAccessException("运算值不能为空");
         }
 
-        return NameUtils.toUnderLine(property);
+        if(value instanceof List && ((List) value).isEmpty()){
+            throw new DataAccessException("运算数组不能为空");
+        }
+
+        this.secondValue = value;
+    }
+
+    public void setProperty(String property){
+        if(StringUtils.isBlank(property)){
+            throw new DataAccessException("属性名称不能为空");
+        }
+
+        this.property = NameUtils.toUnderLine(property);
     }
 
     /**
-     * 模糊查询
+     * 模糊
      */
     public void like(String property, String value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(MessageFormat.format("%{0}%", value));
+        setProperty(property);
 
-        this.value = this.property = property;
-        this.value = WILDCARD + value + WILDCARD;
         this.operator = LIKE;
         this.singleValue = true;
     }
@@ -162,11 +139,9 @@ public class Criterion{
      * 模糊不相似
      */
     public void notLike(String property, String value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(MessageFormat.format("%{0}%", value));
+        setProperty(property);
 
-        this.property = property;
-        this.value = WILDCARD + value + WILDCARD;
         this.operator = NOT_LIKE;
         this.singleValue = true;
     }
@@ -175,11 +150,9 @@ public class Criterion{
      * 相等
      */
     public void eq(String property, Object value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = EQUAL;
         this.singleValue = true;
     }
@@ -188,24 +161,20 @@ public class Criterion{
      * 不相等
      */
     public void notEq(String property, Object value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = NOT_EQUAL;
         this.singleValue = true;
     }
 
     /**
-     * 不大于
+     * 小于等于
      */
     public void le(String property, Object value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = LESS_EQUAL;
         this.singleValue = true;
     }
@@ -214,24 +183,20 @@ public class Criterion{
      * 小于
      */
     public void lt(String property, Object value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = LESS_THAN;
         this.singleValue = true;
     }
 
     /**
-     * 不小于
+     * 大于等于
      */
     public void ge(String property, Object value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = GREATER_EQUAL;
         this.singleValue = true;
     }
@@ -240,11 +205,9 @@ public class Criterion{
      * 大于
      */
     public void gt(String property, Object value){
-        checkValue(value);
-        property = checkProperty(property);
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = GREATER_THAN;
         this.singleValue = true;
     }
@@ -253,13 +216,10 @@ public class Criterion{
      * 之间
      */
     public void between(String property, Object min, Object max){
-        checkValue(min);
-        checkValue(max);
-        property = checkProperty(property);
+        setValue(min);
+        setSecondValue(max);
+        setProperty(property);
 
-        this.property = property;
-        this.value = min;
-        this.secondValue = max;
         this.operator = BETWEEN;
         this.betweenValue = true;
     }
@@ -268,109 +228,114 @@ public class Criterion{
      * 之外
      */
     public void notBetween(String property, Object min, Object max){
-        checkValue(min);
-        checkValue(max);
-        property = checkProperty(property);
+        setValue(min);
+        setSecondValue(max);
+        setProperty(property);
 
-        this.property = property;
-        this.value = min;
-        this.secondValue = max;
         this.operator = NOT_BETWEEN;
         this.betweenValue = true;
     }
 
     /**
-     * 在其中
+     * 其中
      */
-    public void in(String property, List<?> value){
-        checkValue(value);
-        property = checkProperty(property);
+    public void in(String property, List value){
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = IN;
         this.listValue = true;
     }
 
     /**
-     * 在其外
+     * 其外
      */
-    public void notIn(String property, List<?> value){
-        checkValue(value);
-        property = checkProperty(property);
+    public void notIn(String property, List value){
+        setValue(value);
+        setProperty(property);
 
-        this.property = property;
-        this.value = value;
         this.operator = NOT_IN;
         this.listValue = true;
     }
 
     /**
-     * 为空
+     * 空
      */
     public void isNull(String property){
-        property = checkProperty(property);
+        setProperty(property);
 
-        this.property = property;
         this.operator = IS_NULL;
         this.noValue = true;
     }
 
     /**
-     * 多条件或
+     * 非空
      */
-    public void or(List<Criterion> criterions){
-        if(criterions == null || criterions.size() <= 1){
-            throw new IllegalArgumentException("多条件个数不能少于1");
-        }
+    public void isNotNull(String property){
+        setProperty(property);
 
-        this.operator = OR;
-        this.value = criterions;
-        this.criterionValue = true;
-    }
-
-    /**
-     * 多条件与
-     */
-    public void and(List<Criterion> criterions){
-        if(criterions == null || criterions.size() <= 1){
-            throw new IllegalArgumentException("多条件个数不能少于1");
-        }
-
-        this.operator = AND;
-        this.value = criterions;
-        this.criterionValue = true;
-    }
-
-    /**
-     * 不为空
-     */
-    public void notNull(String property){
-        property = checkProperty(property);
-
-        this.property = property;
         this.operator = IS_NOT_NULL;
         this.noValue = true;
     }
 
     /**
-     * 倒序排序
+     * 空字符
+     */
+    public void isBlank(String property){
+        setProperty(property);
+        setValue("");
+
+        this.operator = EQUAL;
+        this.singleValue = true;
+    }
+
+    /**
+     * 非空字符串
+     */
+    public void isNotBlank(String property){
+        setProperty(property);
+        setValue("");
+
+        this.operator = NOT_EQUAL;
+        this.singleValue = true;
+    }
+
+    /**
+     * 或
+     */
+    public void or(List<Criterion> value){
+        setValue(value);
+
+        this.operator = OR;
+        this.orCriterionValue = true;
+    }
+
+    /**
+     * 与
+     */
+    public void and(List<Criterion> value){
+        setValue(value);
+
+        this.operator = AND;
+        this.andCriterionValue = true;
+    }
+
+    /**
+     * 降序
      */
     public void desc(String property){
-        property = checkProperty(property);
+        setProperty(property);
 
-        this.property = property;
         this.operator = DESC;
         this.noValue = true;
     }
 
     /**
-     * 顺序排序
+     * 升序
      */
     public void asc(String property){
-        property = checkProperty(property);
+        setProperty(property);
 
-        this.property = property;
         this.operator = ASC;
         this.noValue = true;
     }
@@ -379,12 +344,17 @@ public class Criterion{
      * 分页
      */
     public void limit(Long offset, Long size){
-        if(offset == null || offset < 0 || size == null || size < 0){
-            throw new IllegalArgumentException("分页参数不能为空或少于0");
+        if(offset == null || offset < 0){
+            throw new DataAccessException("分页游标不能为空或小于0");
         }
 
-        this.value = offset;
-        this.secondValue = size;
+        if(size == null || size < 0){
+            throw new DataAccessException("分页记录数量不能为空或小于0");
+        }
+
+        setValue(offset);
+        setSecondValue(size);
+
         this.operator = LIMIT;
         this.betweenValue = true;
     }
@@ -393,9 +363,8 @@ public class Criterion{
      * 分组
      */
     public void groupBy(String property){
-        property = checkProperty(property);
+        setProperty(property);
 
-        this.property = property;
         this.operator = GROUP_BY;
         this.noValue = true;
     }
